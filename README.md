@@ -1,3 +1,5 @@
+# default branch includes the instructor for contributing and deploying the repo
+ - more info: https://github.com/miladesmailpour/challenges/tree/default
 # 01 HTML, CSS, and Git: Code Refactor
 
 ## Challenges in This Course
