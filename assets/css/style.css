@@ -207,6 +207,7 @@ main {
     font-size: 20px;
 }
 
+/* madia added for 600px, 768px and over 900px to adopte the element to the screen size */
 @media screen and (max-width: 600px) {
 
     .search-engine-optimization,
@@ -222,7 +223,6 @@ main {
         margin: 15px;
         float: none;
     }
-
 
     .search-engine-optimization h2,
     .online-reputation-management h2,
@@ -260,7 +260,6 @@ main {
         max-height: 150px;
     }
 
-
 }
 
 @media screen and (max-width: 960px) {
@@ -268,8 +267,5 @@ main {
         flex-direction: column;
         align-items: center;
     }
-
-
-
 
 }
