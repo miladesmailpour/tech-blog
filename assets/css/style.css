@@ -29,6 +29,8 @@ main {
     height: 400px;
     width: 400px;
     color: antiquewhite;
+    padding: 10px;
+    margin: 10px;
 }
 
 footer {
