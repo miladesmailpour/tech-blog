@@ -1,0 +1,37 @@
+body {
+    background-color: cornflowerblue;
+}
+
+header {
+    background-color: darkkhaki;
+    height: 100px;
+}
+
+main {
+    border: 2px solid red;
+    padding: 10px;
+    margin: 10px;
+}
+
+.highlight-section {
+    background-color: cadetblue;
+    height: 200px;
+}
+
+.experiances-section {
+    border: 2px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+.card {
+    background-color: darkblue;
+    height: 400px;
+    width: 400px;
+    color: antiquewhite;
+}
+
+footer {
+    background-color: darkkhaki;
+    height: 100px;
+}
