@@ -8,29 +8,86 @@ header {
 }
 
 main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     border: 2px solid red;
+    padding: 10px;
+    margin: 10px;
+    /* margin: 20px 100px; */
+}
+
+.highlight-section {
+    flex: 1 1 200px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: cadetblue;
     padding: 10px;
     margin: 10px;
 }
 
-.highlight-section {
-    background-color: cadetblue;
-    height: 200px;
+.about-me {
+    position: relative;
+    padding: 10px;
+    margin: 10px;
+    justify-content: center;
+    border: 2px solid black;
+    flex: 1 1 80%;
+}
+
+.about-me-header {
+    position: relative;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid black;
+    width: 100px;
+    background-color: aliceblue;
 }
 
 .experiances-section {
+    flex: 1 1 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     border: 2px solid black;
     padding: 10px;
     margin: 10px;
 }
 
+.projects {
+    flex: 1 1 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 2px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+/* article+section {} */
+
+.projects-header {
+    position: relative;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid black;
+    width: 100px;
+    background-color: aliceblue;
+}
+
 .card {
+    flex: 1 0 500px;
     background-color: darkblue;
-    height: 400px;
-    width: 400px;
+    height: 200px;
+    width: 600px;
     color: antiquewhite;
     padding: 10px;
     margin: 10px;
+}
+
+.intro-project {
+    flex: 1 10 100%;
 }
 
 footer {
