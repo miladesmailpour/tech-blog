@@ -115,6 +115,25 @@ main {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 5px;
+}
+
+.project-title {
+    position: relative;
+    color: var(--font-color-light);
+    background-color: var(--nav-background);
+    border: 2px solid var(--header-color);
+    width: 140px;
+    padding: 5px;
+    bottom: -70%;
+}
+
+section div p {
+    font-size: 12px;
+}
+
+.intro {
+    bottom: -85%;
 }
 
 .w1 {
@@ -168,7 +187,6 @@ main {
 
 footer {
     background-color: var(--header-background);
-
     border-top: 1px dashed var(--font-color-dark);
     display: flex;
     flex-wrap: wrap;
@@ -206,20 +224,29 @@ footer {
     text-shadow: 2px 3px 1px gray;
 }
 
+.card:hover {
+    /* border: 1px dotted yellow; */
+    box-shadow: -1px 1px 10px var(--header-color);
+}
 
-@media screen and (max-width:768px) {
-    body {
-        background-color: brown;
-    }
+a:hover {
+    text-shadow: 2px 3px 1px var(--font-color-dark);
+}
+
+@media screen and (max-width: 768px) {
 
     .about-me {
         height: 60%;
     }
-}
 
-@media screen and (max-width: 768px) {
     nav {
         flex-direction: column;
         align-items: center;
     }
+
+    .contact-me a,
+    .contact-me span {
+        padding: 10px 20px 10px 10px;
+    }
+
 }
