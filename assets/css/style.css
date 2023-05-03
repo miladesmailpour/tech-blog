@@ -107,6 +107,35 @@ main {
     margin: 10px;
 }
 
+.w1,
+.w2,
+.w3,
+.w4,
+.w5 {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.w1 {
+    background-image: url("../images/w1.jpg");
+}
+
+.w2 {
+    background-image: url("../images/w2.jpg");
+}
+
+.w3 {
+    background-image: url("../images/w3.jpg");
+}
+
+.w4 {
+    background-image: url("../images/w4.jpg");
+}
+
+.w5 {
+    background-image: url("../images/w5.png");
+}
 
 .projects-header {
     position: relative;
@@ -134,6 +163,7 @@ main {
 
 .intro-project {
     flex: 1 10 100%;
+    height: 400px;
 }
 
 footer {
