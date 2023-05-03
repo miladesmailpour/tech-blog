@@ -13,6 +13,8 @@ body {
     background-color: var(--body-background);
 }
 
+/* header and navigation bar */
+
 header {
     background-color: var(--header-background);
     height: 100px;
@@ -48,6 +50,7 @@ nav a {
     padding: 10px 20px;
 }
 
+/* main   */
 main {
     display: flex;
     flex-wrap: wrap;
@@ -55,6 +58,8 @@ main {
     padding: 10px;
     margin: 10px;
 }
+
+/* highlight section and its elements */
 
 .highlight-section {
     flex: 1 1 200px;
@@ -88,6 +93,7 @@ main {
     height: 40px;
 }
 
+/* project section and its cards */
 .experiances-section {
     flex: 1 1 200px;
     display: flex;
@@ -185,6 +191,7 @@ section div p {
     height: 400px;
 }
 
+/* footer and its childern */
 footer {
     background-color: var(--header-background);
     border-top: 1px dashed var(--font-color-dark);
@@ -224,6 +231,8 @@ footer {
     text-shadow: 2px 3px 1px gray;
 }
 
+/* special effect for the links and cards */
+
 .card:hover {
     /* border: 1px dotted yellow; */
     box-shadow: -1px 1px 10px var(--header-color);
@@ -232,6 +241,8 @@ footer {
 a:hover {
     text-shadow: 2px 3px 1px var(--font-color-dark);
 }
+
+/* tracking and handeling the screen resolution change  */
 
 @media screen and (max-width: 768px) {
 
