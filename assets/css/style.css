@@ -249,4 +249,17 @@ a:hover {
         padding: 10px 20px 10px 10px;
     }
 
+    .about-me {
+        border-top: 5px solid var(--font-color-dark);
+        border-left: 0;
+        font-size: 14px;
+        line-height: 1em;
+
+    }
+
+    .projects {
+        border-left: 0;
+        border-top: 5px solid var(--font-color-dark);
+    }
+
 }
