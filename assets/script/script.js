@@ -15,9 +15,9 @@ generateBtn.addEventListener("click", writePassword);
 
 // collect and defind the selected criteria by user
 function criteriaSelector() {
-    //l ist of Criteria to ask
+    // list of Criteria to ask
     var questions = [
-        "Please enter the length of the password!",
+        "Please enter the length of the password!\nMust be a number and 8 is a minimum.",
         "Do you want Lowercase character in password?",
         "How about the Uppercase?",
         "is there any number in you password?",
@@ -32,7 +32,7 @@ function criteriaSelector() {
         // store the length
         for (; inValidLength;) {
             userInput = prompt(questions[0])
-            if (!isNaN(userInput) && userInput > 0) {
+            if (!isNaN(userInput) && userInput > 7) {
                 criteria[0] = userInput
                 inValidLength = false
             }
@@ -50,6 +50,10 @@ function criteriaSelector() {
         }
     }
     return criteria
+}
+
+function generatePassword() {
+
 }
 
 console.log(criteriaSelector())
