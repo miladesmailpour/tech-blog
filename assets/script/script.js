@@ -32,7 +32,7 @@ function criteriaSelector() {
         // store the length
         for (; inValidLength;) {
             userInput = prompt(questions[0])
-            if (!isNaN(userInput) && userInput > 7) {
+            if (!isNaN(userInput) && (userInput > 7 && userInput <= 128)) {
                 criteria[0] = userInput
                 inValidLength = false
             }
@@ -52,8 +52,59 @@ function criteriaSelector() {
     return criteria
 }
 
-function generatePassword() {
+function generatePassword(userinput) {
+    var len = userinput[0]
+    var criteria = []
+    var passwordArray = []
+    if (userinput[1]) { criteria.push('l') }
+    if (userinput[2]) { criteria.push('u') }
+    if (userinput[3]) { criteria.push('n') }
+    if (userinput[4]) { criteria.push('s') }
+
+    for (var i = 0; i <= len; i++) {
+
+        var randomCriteria = randomCharacter(criteria.length, "none")
+
+        var randomChar = randomCharacter(0, criteria[randomCriteria])
+        passwordArray.push(randomChar)
+    }
+
+
+    return passwordArray.join("")
 
 }
 
-console.log(criteriaSelector())
+function randomCharacter(num, option) {
+    var max = num
+    var randomNum = 0
+    var specialChar = ["~", "!", "@", "#", "$", "%", "&", "*", "(", ")", "_", "-", "+", "<", ">", "?", "/", "\\", "{", "}", "[", "]"]
+    if (option == "none") {
+        return Math.floor(Math.random() * max)
+    }
+    if (option == "l") {
+        max = 25
+        randomNum = Math.floor(Math.random() * max)
+        randomNum += 97
+        return String.fromCharCode(randomNum)
+    }
+    if (option == "u") {
+        max = 25
+        randomNum = Math.floor(Math.random() * max)
+        randomNum += 65
+        return String.fromCharCode(randomNum)
+    }
+    if (option == "n") {
+        max = 9
+        randomNum = Math.floor(Math.random() * max)
+        randomNum += 48
+        return String.fromCharCode(randomNum)
+    }
+    if (option == "s") {
+        max = specialChar.length
+        randomNum = Math.floor(Math.random() * max)
+        return specialChar[randomNum]
+    }
+
+}
+console.log(generatePassword(criteriaSelector()))
+writePassword()
