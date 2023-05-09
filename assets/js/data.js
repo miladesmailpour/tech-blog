@@ -1,3 +1,5 @@
+// Questions: Array of Javascript Object which each includes question, multiple choices, and correct answer 
+
 var jsQuestions = [
     {
         question: "Which of the following is a valid way to declare a variable in JavaScript?",
