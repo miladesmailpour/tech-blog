@@ -9,7 +9,7 @@ var START_OVER = 'start-over'
 var NEXT = 'next'
 var userInfo = {
     name: '',
-    score: ''
+    score: 0
 }
 var mChoice = document.querySelector('#multi-choices')
 var views = {
@@ -26,7 +26,6 @@ var questionTemplate = {
     choice2: mChoice.children[1],
     choice3: mChoice.children[2],
     choice4: mChoice.children[3],
-    answer: document.querySelector('#final-answer')
 
 }
 
@@ -63,10 +62,10 @@ function viewHandler(event) {
     }
     if (ele.matches('li')) {
         dataAttr = ele.getAttribute('data-multi-choice')
-        console.log(dataAttr)
-        // displayView(views.quiz, false)
-        // displayView(views.result, true)
-        // nextQuestion()
+        console.log(dataAttr, questions)
+        quizLocalStorage("questions", questions, 'r')
+        console.log(dataAttr, questions)
+
     }
 }
 
@@ -97,6 +96,7 @@ function inital(subject) {
 
 function start(subject) {
     userInfo.name = userName.value
+    quizLocalStorage("userInfo", userInfo, 'w')
     userNameDisplay.textContent = userInfo.name
     displayView(views.start, false)
     displayView(views.quiz, true)
@@ -110,13 +110,15 @@ function startOver(subject) {
 }
 
 function quizLocalStorage(name, store, state) {
-    var quizzes = { [name]: store }
+    var quizzes = JSON.parse(localStorage.getItem('quizzes'))
+    quizzes[name] = store
+    console.log(quizzes)
     if (state == 'w') {
 
-        localStorage.setItem('quizzes', JSON.stringify(quizzes));
+        localStorage.setItem('quizzes', JSON.stringify(quizzes))
     }
     if (state == 'r') {
-        quizzes = JSON.parse(localStorage.getItem('quizzes'));
+        quizzes = JSON.parse(localStorage.getItem('quizzes'))
         questions = quizzes.questions
     }
     else { return }
