@@ -82,7 +82,7 @@ main {
 }
 
 #welcome-view {
-    /* display: block; */
+    display: block;
 }
 
 
@@ -147,8 +147,8 @@ main {
     height: 350px;
     box-shadow: 1px 1px 1px var(--background-header-footer);
 
-    /* display: none; */
-    display: block;
+    display: none;
+    /* display: block; */
 }
 
 /*  */
