@@ -19,7 +19,7 @@
 
     </header>
     <main>
-        <!-- start view : welcome message, quick guid, type of quiz to select -->
+        <!-- Welcome view : First view displayed to user, welcome message, quick guid, type of quiz to select -->
         <section id="welcome-view" class="view">
             <h3>Welcome to the Quiz Master</h3>
             <h4>Pick on of the Javscript, CSS or HTML quiz to check your fundamental knowladge in theses area.</h4>
@@ -28,7 +28,7 @@
             <button>Javascript</button>
             <button>CSS</button>
             <button>HTML</button>
-
+            <!-- Start view : quiz start after validating the inputed name -->
         </section>
         <section id="start-view" class="view">
             <label for="name">
@@ -37,6 +37,7 @@
             <input type="text" id="user-name" name="name" required minlength="1">
             <button>Start</button>
         </section>
+        <!-- Quiz view : questions randomly display one after each by clicking on answer-->
         <section id="quiz-view" class="view">
             <h3>Question</h3>
             <ul>
@@ -47,10 +48,12 @@
             </ul>
             <h6>correct</h6>
         </section>
+        <!-- Result view : appear when quiz done with current name and acsore -->
         <section id="result-view" class="view">
             <h3>Your Score!</h3>
             <h4>Name: score%</h4>
         </section>
+        <!-- High score view : displayed the history of records -->
         <section id="high-score-view" class="view">
             <h3>High Score!</h3>
             <ul>
