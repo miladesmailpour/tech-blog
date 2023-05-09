@@ -1,9 +1,11 @@
 
 var bodyEl = document.querySelector("body")
+var userName = document.querySelector('#user-name')
+var userNameDisplay = document.querySelector('#user-name-display')
 var quizSubjects = ['js', 'css', 'html']
-var highScore = 'high-score'
-var start = 'start'
-var startOver = 'start-over'
+var HIGH_SCORE = 'high-score'
+var START = 'start'
+var START_OVER = 'start-over'
 var userInfo = {
     name: '',
     score: ''
@@ -42,20 +44,18 @@ function viewHandler(event) {
         dataAttr = ele.getAttribute('data-btn')
         if (quizSubjects.includes(dataAttr)) {
             inital(dataAttr)
+
         }
-        else if (dataAttr === highScore) {
+        else if (dataAttr === HIGH_SCORE) {
             displayView(views.highest, true)
             displayView(views.welcome, false)
             displayView(views.result, false)
 
-        } else if (dataAttr === start) {
-            displayView(views.start, false)
-            displayView(views.quiz, true)
-            nextQuestion()
-        } else if (dataAttr === startOver) {
-            displayView(views.result, false)
-            displayView(views.highest, false)
-            displayView(views.welcome, true)
+        } else if (dataAttr === START) {
+            start(dataAttr)
+
+        } else if (dataAttr === START_OVER) {
+            startOver(dataAttr)
         } else { return }
     }
     if (ele.matches('li')) {
@@ -76,7 +76,6 @@ function displayView(view, option) {
 }
 
 function inital(subject) {
-
     if (subject == quizSubjects[0]) {
         questions = jsQuestions
     }
@@ -87,8 +86,23 @@ function inital(subject) {
         questions = htmlQuestions
     }
     quizLocalStorage("questions", questions, 'w')
+
     displayView(views.start, true)
     displayView(views.welcome, false)
+}
+
+function start(subject) {
+    userInfo.name = userName.value
+    userNameDisplay.textContent = userInfo.name
+    displayView(views.start, false)
+    displayView(views.quiz, true)
+    nextQuestion()
+}
+
+function startOver(subject) {
+    displayView(views.result, false)
+    displayView(views.highest, false)
+    displayView(views.welcome, true)
 }
 
 function quizLocalStorage(name, store, state) {
@@ -124,5 +138,6 @@ function nextQuestion() {
     else {
         displayView(views.quiz, false)
         displayView(views.result, true)
+        answredQuestion.length = 0
     }
 }
