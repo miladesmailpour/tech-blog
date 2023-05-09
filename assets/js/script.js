@@ -4,6 +4,11 @@ var quizSubjects = ['js', 'css', 'html']
 var highScore = 'high-score'
 var start = 'start'
 var startOver = 'start-over'
+var userInfo = {
+    name: '',
+    score: ''
+}
+var mChoice = document.querySelector('#multi-choices')
 var views = {
     welcome: document.querySelector('#welcome-view'),
     start: document.querySelector('#start-view'),
@@ -11,11 +16,23 @@ var views = {
     result: document.querySelector('#result-view'),
     highest: document.querySelector('#high-score-view')
 }
+var answredQuestion = []
+var questionTemplate = {
+    question: document.querySelector('#question'),
+    choice1: mChoice.children[0],
+    choice2: mChoice.children[1],
+    choice3: mChoice.children[2],
+    choice4: mChoice.children[3],
+    answer: document.querySelector('#final-answer')
+
+}
 var subject
 var questions
 
 // listening to the clicked event button and li 
-bodyEl.addEventListener('click', function (event) {
+// and navigeting between the views
+bodyEl.addEventListener('click', viewHandler)
+function viewHandler(event) {
     var ele = event.target
     var dataAttr
     questions = []
@@ -36,6 +53,7 @@ bodyEl.addEventListener('click', function (event) {
             }
             displayView(views.start, true)
             displayView(views.welcome, false)
+            nextQuestion()
         }
         else if (dataAttr === highScore) {
             displayView(views.highest, true)
@@ -45,6 +63,7 @@ bodyEl.addEventListener('click', function (event) {
         } else if (dataAttr === start) {
             displayView(views.start, false)
             displayView(views.quiz, true)
+            nextQuestion()
         } else if (dataAttr === startOver) {
             displayView(views.result, false)
             displayView(views.highest, false)
@@ -56,10 +75,10 @@ bodyEl.addEventListener('click', function (event) {
         displayView(views.quiz, false)
         displayView(views.result, true)
     }
-})
+}
 
 function displayView(view, option) {
-    console.log(view)
+
     if (option) {
         view.setAttribute('style', 'display: block;')
     }
@@ -67,4 +86,17 @@ function displayView(view, option) {
         view.setAttribute('style', 'display: none;')
     }
 
+}
+
+function nextQuestion() {
+    if (answredQuestion.length < questions.length) {
+        questionTemplate.question.textContent = questions[0].question
+        questionTemplate.choice1.textContent = questions[0].a
+        questionTemplate.choice2.textContent = questions[0].b
+        questionTemplate.choice3.textContent = questions[0].c
+        questionTemplate.choice4.textContent = questions[0].d
+    } else {
+        displayView(views.quiz, false)
+        displayView(views.result, true)
+    }
 }
