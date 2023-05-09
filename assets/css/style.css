@@ -96,6 +96,11 @@ main {
     text-align: center;
 }
 
+#next-question {
+    position: relative;
+    left: 40%;
+}
+
 #quiz-view ul li,
 #high-score-view ul li {
     margin: 5px;

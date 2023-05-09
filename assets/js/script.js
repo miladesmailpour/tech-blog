@@ -6,6 +6,7 @@ var quizSubjects = ['js', 'css', 'html']
 var HIGH_SCORE = 'high-score'
 var START = 'start'
 var START_OVER = 'start-over'
+var NEXT = 'next'
 var userInfo = {
     name: '',
     score: ''
@@ -56,13 +57,16 @@ function viewHandler(event) {
 
         } else if (dataAttr === START_OVER) {
             startOver(dataAttr)
+        } else if (dataAttr === NEXT) {
+            nextQuestion()
         } else { return }
     }
     if (ele.matches('li')) {
         dataAttr = ele.getAttribute('data-multi-choice')
+        console.log(dataAttr)
         // displayView(views.quiz, false)
         // displayView(views.result, true)
-        nextQuestion()
+        // nextQuestion()
     }
 }
 
