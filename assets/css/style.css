@@ -47,6 +47,10 @@ button {
     box-shadow: 1px 1px 1px var(--background-body);
 }
 
+.high-score-list {
+    border: 2px solid red;
+}
+
 button:hover {
     background-color: var(--background-header-footer);
     color: var(--font-dark);
@@ -77,6 +81,57 @@ main {
     justify-content: center;
 }
 
+#welcome-view {
+    /* display: block; */
+}
+
+
+#start-view {
+    width: 800px;
+    height: 200px;
+}
+
+#start-view input {
+    padding: 5px;
+    text-align: center;
+}
+
+#quiz-view ul li,
+#high-score-view ul li {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid var(--background-header-footer);
+    background-color: var(--font-dark);
+    color: var(--font-light);
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px var(--background-body);
+}
+
+#quiz-view ul li:hover,
+#high-score-view ul li:hover {
+    background-color: var(--background-header-footer);
+    color: var(--font-dark);
+    text-shadow: 1px 1px 1px var(--font-light);
+    box-shadow: 1px 1px 1px var(--font-dark);
+}
+
+#quiz-view ul li:active {
+    background-color: var(--font-dark);
+    color: var(--font-light);
+    text-shadow: 1px 1px 1px var(--font-dark);
+    box-shadow: 1px 1px -1px var(--font-dark);
+}
+
+#final-answer {
+    margin-top: 20px;
+    border-top: 3px dashed var(--background-header-footer);
+}
+
+/* 
+#high-score-view {
+    display: block;
+} */
+
 
 /* Main direct child: styling the intractive section of the page */
 .view {
@@ -93,6 +148,7 @@ main {
     box-shadow: 1px 1px 1px var(--background-header-footer);
 
     /* display: none; */
+    display: block;
 }
 
 /*  */
