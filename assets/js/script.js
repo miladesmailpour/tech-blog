@@ -33,6 +33,7 @@ var questions
 // and navigeting between the views
 bodyEl.addEventListener('click', viewHandler)
 function viewHandler(event) {
+    event.preventDefault();
     var ele = event.target
     var dataAttr
     questions = []
@@ -51,9 +52,9 @@ function viewHandler(event) {
             if (subject == quizSubjects[2]) {
                 questions = htmlQuestions
             }
+            localStorage.setItem("questions", JSON.stringify(questions));
             displayView(views.start, true)
             displayView(views.welcome, false)
-            nextQuestion()
         }
         else if (dataAttr === highScore) {
             displayView(views.highest, true)
@@ -72,8 +73,9 @@ function viewHandler(event) {
     }
     if (ele.matches('li')) {
         dataAttr = ele.getAttribute('data-multi-choice')
-        displayView(views.quiz, false)
-        displayView(views.result, true)
+        // displayView(views.quiz, false)
+        // displayView(views.result, true)
+        nextQuestion()
     }
 }
 
@@ -89,13 +91,22 @@ function displayView(view, option) {
 }
 
 function nextQuestion() {
+    questions = JSON.parse(localStorage.getItem("questions"));
+    if (questions === null) {
+        return
+    }
+    console.log(answredQuestion.length, questions.length)
     if (answredQuestion.length < questions.length) {
-        questionTemplate.question.textContent = questions[0].question
-        questionTemplate.choice1.textContent = questions[0].a
-        questionTemplate.choice2.textContent = questions[0].b
-        questionTemplate.choice3.textContent = questions[0].c
-        questionTemplate.choice4.textContent = questions[0].d
-    } else {
+        var currentQuestion = questions[answredQuestion.length]
+        answredQuestion.push(questions[answredQuestion.length])
+
+        questionTemplate.question.textContent = currentQuestion.question
+        questionTemplate.choice1.textContent = currentQuestion.a
+        questionTemplate.choice2.textContent = currentQuestion.b
+        questionTemplate.choice3.textContent = currentQuestion.c
+        questionTemplate.choice4.textContent = currentQuestion.d
+    }
+    else {
         displayView(views.quiz, false)
         displayView(views.result, true)
     }
