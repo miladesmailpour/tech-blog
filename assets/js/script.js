@@ -26,7 +26,7 @@ var questionTemplate = {
     answer: document.querySelector('#final-answer')
 
 }
-var subject
+
 var questions
 
 // listening to the clicked event button and li 
@@ -37,24 +37,11 @@ function viewHandler(event) {
     var ele = event.target
     var dataAttr
     questions = []
-    subject = ''
 
     if (ele.matches('button')) {
         dataAttr = ele.getAttribute('data-btn')
         if (quizSubjects.includes(dataAttr)) {
-            subject = dataAttr
-            if (subject == quizSubjects[0]) {
-                questions = jsQuestions
-            }
-            if (subject == quizSubjects[1]) {
-                questions = cssQuestions
-            }
-            if (subject == quizSubjects[2]) {
-                questions = htmlQuestions
-            }
-            localStorage.setItem("questions", JSON.stringify(questions));
-            displayView(views.start, true)
-            displayView(views.welcome, false)
+            inital(dataAttr)
         }
         else if (dataAttr === highScore) {
             displayView(views.highest, true)
@@ -80,18 +67,46 @@ function viewHandler(event) {
 }
 
 function displayView(view, option) {
-
     if (option) {
         view.setAttribute('style', 'display: block;')
     }
     else {
         view.setAttribute('style', 'display: none;')
     }
+}
+
+function inital(subject) {
+
+    if (subject == quizSubjects[0]) {
+        questions = jsQuestions
+    }
+    if (subject == quizSubjects[1]) {
+        questions = cssQuestions
+    }
+    if (subject == quizSubjects[2]) {
+        questions = htmlQuestions
+    }
+    quizLocalStorage("questions", questions, 'w')
+    displayView(views.start, true)
+    displayView(views.welcome, false)
+}
+
+function quizLocalStorage(name, store, state) {
+    var quizzes = { [name]: store }
+    if (state == 'w') {
+
+        localStorage.setItem('quizzes', JSON.stringify(quizzes));
+    }
+    if (state == 'r') {
+        quizzes = JSON.parse(localStorage.getItem('quizzes'));
+        questions = quizzes.questions
+    }
+    else { return }
 
 }
 
 function nextQuestion() {
-    questions = JSON.parse(localStorage.getItem("questions"));
+    quizLocalStorage("questions", questions, 'r')
     if (questions === null) {
         return
     }
