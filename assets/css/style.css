@@ -126,6 +126,10 @@ main {
     box-shadow: 1px 1px 1px var(--background-body);
 }
 
+#high-score-view h3 {
+    margin-top: 0px;
+}
+
 #quiz-view ul li:hover,
 #high-score-view ul li:hover {
     background-color: var(--background-header-footer);
@@ -133,6 +137,8 @@ main {
     text-shadow: 1px 1px 1px var(--font-light);
     box-shadow: 1px 1px 1px var(--font-dark);
 }
+
+
 
 #quiz-view ul li:active {
     background-color: var(--font-dark);

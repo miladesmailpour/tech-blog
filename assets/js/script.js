@@ -12,6 +12,7 @@ var userInfo = {
     name: '',
     score: 0
 }
+var highScores = []
 var mChoice = document.querySelector('#multi-choices')
 var views = {
     welcome: document.querySelector('#welcome-view'),
@@ -32,6 +33,7 @@ var questionTemplate = {
 var next = document.querySelector('#next-question')
 var questions
 
+
 // listening to the clicked event button and li 
 // and navigeting between the views
 bodyEl.addEventListener('click', viewHandler)
@@ -48,9 +50,7 @@ function viewHandler(event) {
 
         }
         else if (dataAttr === HIGH_SCORE) {
-            displayView(views.highest, true)
-            displayView(views.welcome, false)
-            displayView(views.result, false)
+            scoreHistory(dataAttr)
 
         } else if (dataAttr === START) {
             start(dataAttr)
@@ -86,6 +86,8 @@ function inital(subject) {
     if (subject == quizSubjects[2]) {
         questions = htmlQuestions
     }
+    // console.log('inital' + questions)
+    // console.log('inital' + jsQuestions[0])
     quizLocalStorage("questions", questions, 'w')
 
     displayView(views.start, true)
@@ -102,13 +104,33 @@ function start(subject) {
 }
 
 function startOver(subject) {
+    userInfo.name = ''
+    userInfo.score = 0
     displayView(views.result, false)
     displayView(views.highest, false)
     displayView(views.welcome, true)
 }
 
+function scoreHistory(subject) {
+    displayView(views.highest, true)
+    displayView(views.welcome, false)
+    displayView(views.result, false)
+    quizLocalStorage("highScores", highScores, 'r')
+    sortList()
+    views.highest.children[1].innerHTML = ''
+    var tag
+    for (var i = 0; i < 5; i++) {
+        tag = document.createElement('li');
+        tag.textContent = highScores[i].name + " : " + highScores[i].score
+        views.highest.children[1].appendChild(tag)
+    }
+}
+
 function quizLocalStorage(name, store, state) {
     var quizzes = JSON.parse(localStorage.getItem('quizzes'))
+    if (quizzes == null) {
+        quizzes = { questions: [], userInfo: {}, highScores: [] }
+    }
     quizzes[name] = store
     // console.log(quizzes)
     if (state == 'w') {
@@ -117,8 +139,11 @@ function quizLocalStorage(name, store, state) {
     }
     if (state == 'r') {
         quizzes = JSON.parse(localStorage.getItem('quizzes'))
-        questions = quizzes.questions
-        userInfo = quizzes.userInfo
+        if (quizzes != null) {
+            questions = quizzes.questions
+            userInfo = quizzes.userInfo
+            highScores = quizzes.highScores
+        }
     }
     else { return }
 
@@ -153,7 +178,10 @@ function nextQuestion() {
         displayView(views.result, true)
 
         views.result.children[1].textContent = userInfo.name + ": " + userInfo.score
-
+        console.log(highScores)
+        highScores.push(userInfo)
+        quizLocalStorage("highScores", highScores, 'w')
+        console.log(highScores)
         answredQuestion.length = 0
     }
 }
@@ -216,5 +244,19 @@ function choiceLock(choice, correct) {
         }
     }
 
+}
+function sortList() {
+    highScores.sort(function (a, b) {
+        var first = parseInt(a.score)
+        var second = parseInt(b.score)
+        if (first > second) {
+            return -1;
+        }
+        if (first < second) {
+            return 1;
+        }
+        return 0;
+    });
+    console.log(highScores)
 }
 
