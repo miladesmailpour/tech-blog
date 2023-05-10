@@ -101,6 +101,20 @@ main {
     left: 40%;
 }
 
+#next-question[disabled] {
+    border: 1px solid var(--background-body);
+    background-color: var(--background-view);
+    color: var(--font-light);
+
+}
+
+
+#next-question[disabled]:active,
+#next-question[disabled]:hover {
+    text-shadow: none;
+    box-shadow: none;
+}
+
 #quiz-view ul li,
 #high-score-view ul li {
     margin: 5px;

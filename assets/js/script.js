@@ -26,9 +26,9 @@ var questionTemplate = {
     choice2: mChoice.children[1],
     choice3: mChoice.children[2],
     choice4: mChoice.children[3],
-
+    index: mChoice.children[4]
 }
-
+var next = document.querySelector('#next-question')
 var questions
 
 // listening to the clicked event button and li 
@@ -61,11 +61,8 @@ function viewHandler(event) {
         } else { return }
     }
     if (ele.matches('li')) {
-        dataAttr = ele.getAttribute('data-multi-choice')
-        console.log(dataAttr, questions)
-        quizLocalStorage("questions", questions, 'r')
-        console.log(dataAttr, questions)
 
+        selectorHandler(ele)
     }
 }
 
@@ -120,17 +117,21 @@ function quizLocalStorage(name, store, state) {
     if (state == 'r') {
         quizzes = JSON.parse(localStorage.getItem('quizzes'))
         questions = quizzes.questions
+        userInfo = quizzes.userInfo
     }
     else { return }
 
 }
 
 function nextQuestion() {
+    next.disabled = true
+
     quizLocalStorage("questions", questions, 'r')
     if (questions === null) {
         return
     }
     console.log(answredQuestion.length, questions.length)
+
     if (answredQuestion.length < questions.length) {
         var currentQuestion = questions[answredQuestion.length]
         answredQuestion.push(questions[answredQuestion.length])
@@ -140,10 +141,41 @@ function nextQuestion() {
         questionTemplate.choice2.textContent = currentQuestion.b
         questionTemplate.choice3.textContent = currentQuestion.c
         questionTemplate.choice4.textContent = currentQuestion.d
+        questionTemplate.index.textContent = currentQuestion.index
     }
     else {
         displayView(views.quiz, false)
         displayView(views.result, true)
         answredQuestion.length = 0
     }
+}
+
+function selectorHandler(currentEle) {
+
+    var choice = currentEle.dataset.multiChoice
+    var index = currentEle.parentElement.lastElementChild.dataset.multiChoice
+
+    quizLocalStorage("questions", questions, 'r')
+
+    console.log("+" + choice, index, questions)
+    if (index = 'index') {
+        index = currentEle.parentElement.lastElementChild.textContent
+        console.log(index)
+        for (var i = 0; i < questions.length; i++) {
+            if (questions[i].index == index) {
+                if (choice == questions[i].answer) {
+                    console.log("correct " + choice, questions[i].answer)
+                    quizLocalStorage("userInfo", userInfo, 'r')
+                    userInfo.score++
+                    quizLocalStorage("userInfo", userInfo, 'w')
+                    console.log(userInfo)
+                }
+                else {
+                    console.log("wrong " + choice, questions[i].answer)
+                }
+            }
+        }
+
+    }
+
 }
