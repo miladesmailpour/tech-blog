@@ -95,14 +95,17 @@ function inital(subject) {
 }
 
 function start(subject) {
-    userInfo.name = userName.value
-    state = false
-    for (; !state;) {
-        var tmp = prompt("Please enter your name, it is required to start!")
-        if (tmp.length > 0) {
-            state = true
+    if (userName.value == '' || userName.value == null || userName.value == undefined || userName.value.length == 0) {
+        state = false
+        for (; !state;) {
+            var tmp = prompt("Please enter your name, it is required to start!")
+            if (tmp.length > 0) {
+                state = true
+            }
+            userInfo.name = tmp
         }
-        userInfo.name = tmp
+    } else {
+        userInfo.name = userName.value
     }
     quizLocalStorage("userInfo", userInfo, 'w')
     userNameDisplay.textContent = userInfo.name
@@ -114,6 +117,8 @@ function start(subject) {
 function startOver(subject) {
     userInfo.name = ''
     userInfo.score = 0
+    userName.textContent = ''
+    userNameDisplay.textContent = ''
     displayView(views.result, false)
     displayView(views.highest, false)
     displayView(views.welcome, true)
