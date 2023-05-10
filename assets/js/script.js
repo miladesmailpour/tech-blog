@@ -132,14 +132,15 @@ function scoreHistory(subject) {
     displayView(views.highest, true)
     displayView(views.welcome, false)
     displayView(views.result, false)
-    quizLocalStorage("highScores", highScores, 'r')
+    // quizLocalStorage("highScores", highScores, 'r')
     sortList()
     views.highest.children[1].innerHTML = ''
     var tag
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < highScores.length; i++) {
         tag = document.createElement('li');
         tag.textContent = highScores[i].name + " : " + highScores[i].score
         views.highest.children[1].appendChild(tag)
+        if (i > 3) { break }
     }
 }
 // handling wirte and read data to local srorage
@@ -245,10 +246,6 @@ function setTime() {
             clearInterval(timerInterval);
             displayView(views.quiz, false)
             displayView(views.result, true)
-            views.result.children[1].textContent = userInfo.name + ": " + userInfo.score
-            highScores.push(userInfo)
-            quizLocalStorage("highScores", highScores, 'w')
-            answredQuestion.length = 0
             TOTAL_TIME = 50
             timerDisplay.textContent = 'Time: ' + TOTAL_TIME + " seconds";
             highestScore.textContent = highScores[0].name + " : " + highScores[0].score
