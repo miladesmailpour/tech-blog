@@ -2,6 +2,7 @@
 var bodyEl = document.querySelector("body")
 var userName = document.querySelector('#user-name')
 var userNameDisplay = document.querySelector('#user-name-display')
+var ulEl = document.querySelector('#multi-choices')
 var quizSubjects = ['js', 'css', 'html']
 var HIGH_SCORE = 'high-score'
 var START = 'start'
@@ -125,6 +126,10 @@ function quizLocalStorage(name, store, state) {
 
 function nextQuestion() {
     next.disabled = true
+    for (var i = 0; i < 4; i++) {
+        views.quiz.children[1].children[i].setAttribute("style", "background-color: var(--font-dark); color: var(--font-light);")
+    }
+
 
     quizLocalStorage("questions", questions, 'r')
     if (questions === null) {
@@ -157,25 +162,56 @@ function selectorHandler(currentEle) {
 
     quizLocalStorage("questions", questions, 'r')
 
-    console.log("+" + choice, index, questions)
+    // console.log("+" + choice, index, questions)
     if (index = 'index') {
         index = currentEle.parentElement.lastElementChild.textContent
-        console.log(index)
+        // console.log(index)
         for (var i = 0; i < questions.length; i++) {
             if (questions[i].index == index) {
                 if (choice == questions[i].answer) {
-                    console.log("correct " + choice, questions[i].answer)
+                    // console.log("correct " + choice, questions[i].answer)
                     quizLocalStorage("userInfo", userInfo, 'r')
                     userInfo.score++
                     quizLocalStorage("userInfo", userInfo, 'w')
-                    console.log(userInfo)
+                    // console.log(userInfo)
+                    choiceLock(choice, questions[i].answer)
                 }
                 else {
-                    console.log("wrong " + choice, questions[i].answer)
+                    // console.log("wrong " + choice, questions[i].answer)
+                    choiceLock(choice, questions[i].answer)
                 }
             }
         }
+        next.disabled = false
 
     }
 
 }
+
+function choiceLock(choice, correct) {
+    console.log(choice, correct)
+    if (correct != choice) {
+        for (var i = 0; i < 4; i++) {
+            if (views.quiz.children[1].children[i].getAttribute('data-multi-choice') == correct) {
+                views.quiz.children[1].children[i].setAttribute("style", "background-color: green;")
+            }
+            else if (views.quiz.children[1].children[i].getAttribute('data-multi-choice') == choice) {
+                views.quiz.children[1].children[i].setAttribute("style", "background-color: red;")
+            }
+            else {
+                views.quiz.children[1].children[i].setAttribute("style", "background-color: grey; color: var(--font-light);")
+            }
+        }
+    } else {
+        for (var i = 0; i < 4; i++) {
+            if (views.quiz.children[1].children[i].getAttribute('data-multi-choice') == correct) {
+                views.quiz.children[1].children[i].setAttribute("style", "background-color: green;")
+            }
+            else {
+                views.quiz.children[1].children[i].setAttribute("style", "background-color: grey; color: var(--font-light);")
+            }
+        }
+    }
+
+}
+
