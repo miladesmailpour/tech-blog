@@ -3,15 +3,18 @@ var bodyEl = document.querySelector("body")
 var userName = document.querySelector('#user-name')
 var userNameDisplay = document.querySelector('#user-name-display')
 var ulEl = document.querySelector('#multi-choices')
+var timerDisplay = document.querySelector("#timer")
 var quizSubjects = ['js', 'css', 'html']
 var HIGH_SCORE = 'high-score'
 var START = 'start'
 var START_OVER = 'start-over'
 var NEXT = 'next'
+var TOTAL_TIME = 50
 var userInfo = {
     name: '',
     score: 0
 }
+var highestScore = document.querySelector('#highest-score')
 var highScores = []
 var mChoice = document.querySelector('#multi-choices')
 var views = {
@@ -66,7 +69,7 @@ function viewHandler(event) {
         selectorHandler(ele)
     }
 }
-
+// turn on and off, to display the views 
 function displayView(view, option) {
     if (option) {
         view.setAttribute('style', 'display: block;')
@@ -75,7 +78,7 @@ function displayView(view, option) {
         view.setAttribute('style', 'display: none;')
     }
 }
-
+// inital the page: adding the questions
 function inital(subject) {
     if (subject == quizSubjects[0]) {
         questions = jsQuestions
@@ -93,24 +96,38 @@ function inital(subject) {
     displayView(views.start, true)
     displayView(views.welcome, false)
 }
-
+// handling uer name and its validation
 function start(subject) {
-    userInfo.name = userName.value
+    if (userName.value == '' || userName.value == null || userName.value == undefined || userName.value.length == 0) {
+        state = false
+        for (; !state;) {
+            var tmp = prompt("Please enter your name, it is required to start!")
+            if (tmp.length > 0) {
+                state = true
+            }
+            userInfo.name = tmp
+        }
+    } else {
+        userInfo.name = userName.value
+    }
     quizLocalStorage("userInfo", userInfo, 'w')
     userNameDisplay.textContent = userInfo.name
     displayView(views.start, false)
     displayView(views.quiz, true)
     nextQuestion()
+    setTime()
 }
-
+// back to welcom view to start again
 function startOver(subject) {
     userInfo.name = ''
     userInfo.score = 0
+    userName.textContent = ''
+    userNameDisplay.textContent = ''
     displayView(views.result, false)
     displayView(views.highest, false)
     displayView(views.welcome, true)
 }
-
+// display the top 5 high score
 function scoreHistory(subject) {
     displayView(views.highest, true)
     displayView(views.welcome, false)
@@ -125,7 +142,7 @@ function scoreHistory(subject) {
         views.highest.children[1].appendChild(tag)
     }
 }
-
+// handling wirte and read data to local srorage
 function quizLocalStorage(name, store, state) {
     var quizzes = JSON.parse(localStorage.getItem('quizzes'))
     if (quizzes == null) {
@@ -148,7 +165,7 @@ function quizLocalStorage(name, store, state) {
     else { return }
 
 }
-
+// display the questions and handle the navigate between
 function nextQuestion() {
     next.disabled = true
     for (var i = 0; i < 4; i++) {
@@ -176,16 +193,17 @@ function nextQuestion() {
     else {
         displayView(views.quiz, false)
         displayView(views.result, true)
-
         views.result.children[1].textContent = userInfo.name + ": " + userInfo.score
-        console.log(highScores)
         highScores.push(userInfo)
         quizLocalStorage("highScores", highScores, 'w')
-        console.log(highScores)
         answredQuestion.length = 0
+        sortList()
+        console.log(highScores[0])
+        highestScore.textContent = highScores[0].name + " : " + highScores[0].score
+        TOTAL_TIME = 1
     }
 }
-
+// checking the state of question and manipulate the display
 function selectorHandler(currentEle) {
 
     var choice = currentEle.dataset.multiChoice
@@ -209,17 +227,36 @@ function selectorHandler(currentEle) {
                 }
                 else {
                     // console.log("wrong " + choice, questions[i].answer)
-                    choiceLock(choice, questions[i].answer)
+                    choiceLock(choice, questions[i].answer, currentEle.parentElement)
                 }
             }
         }
         next.disabled = false
-
     }
-
 }
+// timer
+function setTime() {
 
-function choiceLock(choice, correct) {
+    var timerInterval = setInterval(function () {
+        TOTAL_TIME--;
+        timerDisplay.textContent = 'Time: ' + TOTAL_TIME + " seconds";
+
+        if (TOTAL_TIME === 0) {
+            clearInterval(timerInterval);
+            displayView(views.quiz, false)
+            displayView(views.result, true)
+            views.result.children[1].textContent = userInfo.name + ": " + userInfo.score
+            highScores.push(userInfo)
+            quizLocalStorage("highScores", highScores, 'w')
+            answredQuestion.length = 0
+            TOTAL_TIME = 50
+            timerDisplay.textContent = 'Time: ' + TOTAL_TIME + " seconds";
+            highestScore.textContent = highScores[0].name + " : " + highScores[0].score
+        }
+    }, 1000);
+}
+// manipulate the display
+function choiceLock(choice, correct, parentEle) {
     // console.log(choice, correct)
     if (correct != choice) {
         for (var i = 0; i < 4; i++) {
@@ -243,8 +280,11 @@ function choiceLock(choice, correct) {
             }
         }
     }
-
+    // parentEle.removeEventListener('click', viewHandler, true)
+    // console.log(parentEle.children)
+    // parentEle.removeEventListener("click", viewHandler, false);
 }
+// sort the high score
 function sortList() {
     highScores.sort(function (a, b) {
         var first = parseInt(a.score)
@@ -257,6 +297,6 @@ function sortList() {
         }
         return 0;
     });
-    console.log(highScores)
 }
+
 
