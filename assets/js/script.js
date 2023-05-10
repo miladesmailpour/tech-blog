@@ -50,9 +50,7 @@ function viewHandler(event) {
 
         }
         else if (dataAttr === HIGH_SCORE) {
-            displayView(views.highest, true)
-            displayView(views.welcome, false)
-            displayView(views.result, false)
+            scoreHistory(dataAttr)
 
         } else if (dataAttr === START) {
             start(dataAttr)
@@ -111,6 +109,20 @@ function startOver(subject) {
     displayView(views.result, false)
     displayView(views.highest, false)
     displayView(views.welcome, true)
+}
+
+function scoreHistory(subject) {
+    displayView(views.highest, true)
+    displayView(views.welcome, false)
+    displayView(views.result, false)
+    quizLocalStorage("highScores", highScores, 'r')
+    views.highest.children[1].innerHTML = ''
+    var tag
+    for (var i = 0; i < 5; i++) {
+        tag = document.createElement('li');
+        tag.textContent = highScores[i].name + " : " + highScores[i].score
+        views.highest.children[1].appendChild(tag)
+    }
 }
 
 function quizLocalStorage(name, store, state) {
