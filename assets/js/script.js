@@ -110,7 +110,7 @@ function startOver(subject) {
 function quizLocalStorage(name, store, state) {
     var quizzes = JSON.parse(localStorage.getItem('quizzes'))
     quizzes[name] = store
-    console.log(quizzes)
+    // console.log(quizzes)
     if (state == 'w') {
 
         localStorage.setItem('quizzes', JSON.stringify(quizzes))
@@ -135,7 +135,7 @@ function nextQuestion() {
     if (questions === null) {
         return
     }
-    console.log(answredQuestion.length, questions.length)
+    // console.log(answredQuestion.length, questions.length)
 
     if (answredQuestion.length < questions.length) {
         var currentQuestion = questions[answredQuestion.length]
@@ -151,6 +151,9 @@ function nextQuestion() {
     else {
         displayView(views.quiz, false)
         displayView(views.result, true)
+
+        views.result.children[1].textContent = userInfo.name + ": " + userInfo.score
+
         answredQuestion.length = 0
     }
 }
@@ -189,7 +192,7 @@ function selectorHandler(currentEle) {
 }
 
 function choiceLock(choice, correct) {
-    console.log(choice, correct)
+    // console.log(choice, correct)
     if (correct != choice) {
         for (var i = 0; i < 4; i++) {
             if (views.quiz.children[1].children[i].getAttribute('data-multi-choice') == correct) {
