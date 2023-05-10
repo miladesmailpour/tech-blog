@@ -96,6 +96,14 @@ function inital(subject) {
 
 function start(subject) {
     userInfo.name = userName.value
+    state = false
+    for (; !state;) {
+        var tmp = prompt("Please enter your name, it is required to start!")
+        if (tmp.length > 0) {
+            state = true
+        }
+        userInfo.name = tmp
+    }
     quizLocalStorage("userInfo", userInfo, 'w')
     userNameDisplay.textContent = userInfo.name
     displayView(views.start, false)
