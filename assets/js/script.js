@@ -116,6 +116,7 @@ function scoreHistory(subject) {
     displayView(views.welcome, false)
     displayView(views.result, false)
     quizLocalStorage("highScores", highScores, 'r')
+    sortList()
     views.highest.children[1].innerHTML = ''
     var tag
     for (var i = 0; i < 5; i++) {
@@ -243,5 +244,19 @@ function choiceLock(choice, correct) {
         }
     }
 
+}
+function sortList() {
+    highScores.sort(function (a, b) {
+        var first = parseInt(a.score)
+        var second = parseInt(b.score)
+        if (first > second) {
+            return -1;
+        }
+        if (first < second) {
+            return 1;
+        }
+        return 0;
+    });
+    console.log(highScores)
 }
 
