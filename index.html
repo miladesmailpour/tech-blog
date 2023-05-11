@@ -5,82 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-    <title>Code Quiz</title>
+    <title>Document</title>
 </head>
 
 <body>
-    <!-- Name of quiz, user name, and reminder time to end of quiz-->
-    <header>
-        <div class="header-title">
-            <h1>Quiz</h1>
-        </div>
-        <div class="header-body">
-            <h4 id="user-name-display">Name</h4>
-            <h4 id="timer">Time:50 seconds</h4>
-        </div>
-    </header>
-    <main>
-        <!-- Welcome view : First view displayed to user, welcome message, quick guid, type of quiz to select -->
-        <section id="welcome-view" class="view">
-            <h2>Welcome to the Quiz Master</h2>
-            <h4>Pick on of the Javscript, CSS or HTML quiz to check your fundamental knowladge in theses subjects.</h4>
-            <p>Each quiz has 10 multiple choice questions with ONLY on valid answer, and must be done by 100
-                seconds.
-            </p>
-            <button data-btn="js">Javascript</button>
-            <button data-btn="css">CSS</button>
-            <button data-btn="html">HTML</button>
-            <button class="high-score-list" data-btn="high-score">High Score!</button>
-            <!-- Start view : quiz start after validating the inputed name -->
-        </section>
-        <section id="start-view" class="view">
-            <label for="name">
-                <h3>Please enter your name and goo luck!</h3>
-            </label>
-            <input type="text" id="user-name" name="name" placeholder="Your Name">
-            <button data-btn="start">Start</button>
-        </section>
-        <!-- Quiz view : questions randomly display one after each by clicking on answer-->
-        <section id="quiz-view" class="view">
-            <h3 id="question">Question</h3>
-            <ul id="multi-choices">
-                <li data-multi-choice="a">1</li>
-                <li data-multi-choice="b">2</li>
-                <li data-multi-choice="c">3</li>
-                <li data-multi-choice="d">4</li>
-                <li hidden data-multi-choice="index">index</li>
-            </ul>
-            <!-- <h4 id="msg-display">C/W</h4> -->
-            <button data-btn="next" id="next-question">NEXT</button>
-        </section>
-        <!-- Result view : appear when quiz done with current name and acsore -->
-        <section id="result-view" class="view">
-            <h3>Your Score!</h3>
-            <h4 id="score">Name: score%</h4>
-            </br>
-            <h3>Highest Score for this subject!</h3>
-            <h4 id="highest-score">Name: score%</h4>
-            <button data-btn="start-over">Try another subject!</button>
-            <button class="high-score-list" data-btn="high-score">High Score!</button>
-        </section>
-        <!-- High score view : displayed the history of records -->
-        <section id="high-score-view" class="view">
-            <h3>5 Top Scores!</h3>
-            <ul>
-
-            </ul>
-            <button data-btn="start-over">Try another subject!</button>
-        </section>
-
-    </main>
-    <footer>
-        <h7>Copyright &copy; 2023 M-Es - All Rights Reserved.</h7>
-    </footer>
 
 </body>
-<script src="./assets/js/data.js"></script>
-<script src="./assets/js/script.js"></script>
 
 </html>
