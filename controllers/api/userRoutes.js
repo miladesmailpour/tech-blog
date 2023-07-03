@@ -11,7 +11,8 @@ router.post('/', async (req, res) => {
 
       res.status(200).json(userData);
     });
-  } catch (err) {
+  } 
+  catch (err) {
     res.status(400).json(err);
   }
 });
@@ -19,7 +20,6 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
-
     if (!userData) {
       res
         .status(400)
@@ -28,7 +28,6 @@ router.post('/login', async (req, res) => {
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
-
     if (!validPassword) {
       res
         .status(400)
@@ -42,7 +41,8 @@ router.post('/login', async (req, res) => {
 
       res.json({ user: userData, message: 'You are now logged in!' });
     });
-  } catch (err) {
+  } 
+  catch (err) {
     res.status(400).json(err);
   }
 });
