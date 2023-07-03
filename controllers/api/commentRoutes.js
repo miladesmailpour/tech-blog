@@ -58,5 +58,27 @@ router.delete('/:id', withAuth, async (req, res) => {
     }
 });
 
+router.put('/:id', withAuth, async (req, res) => {
+    try {
+        const commentData = await Comment.update(
+            {
+                ...req.body
+            },
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        );
+        if (commentData[0] === 0) {
+            res.status(404).json({ message: `comment with id: ${req.params.id} NOT found.` });
+            return;
+        }
+        res.json(commentData);
+    } 
+    catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;
