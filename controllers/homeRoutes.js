@@ -72,4 +72,50 @@ router.get('/post/:id', async (req, res) => {
   }
 });
 
+router.get('/edit/:id', async (req, res) => {
+  try {
+    const postData = await Post.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: Comment,
+          attributes: ['comment_content', 'post_id', 'user_id', 'post_date'],
+          include: {
+            model: User,
+            attributes: ['name']
+          }
+        },
+        {
+          model: User,
+          attributes: ['name']
+        }
+      ]
+    });
+    if (!postData) {
+      res.status(404).json({ message: `post with id: ${req.params.id} NOT found.` });
+      return;
+    }
+    const post = postData.get({ plain: true });
+    res.render('post', { ...post, logged_in: req.session.logged_in });
+  } 
+  catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/profile', withAuth, async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+    });
+    const user = userData.get({ plain: true });
+    res.render('profile', { ...user, logged_in: true }); // profile view should be implement
+  } 
+  catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
