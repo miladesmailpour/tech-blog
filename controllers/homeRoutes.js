@@ -27,4 +27,49 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/login', (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+  res.render('login'); // login view should be implement
+});
+
+router.get('/signup', (req, res) => {
+  res.render('signup'); // signup view should be implement
+});
+
+router.get('/post/:id', async (req, res) => {
+  try {
+    const postData = await Post.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: Comment,
+          attributes: ['text', 'date_created', 'post_id', 'user_id'],
+          include: {
+            model: User,
+            attributes: ['name']
+          }
+        },
+        {
+          model: User,
+          attributes: ['name']
+        }
+      ]
+    });
+    if (!postData) {
+      res.status(404).json({ message: `post with id: ${req.params.id} NOT found.` });
+      return;
+    }
+    const post = postData.get({ plain: true });
+    res.render('post', { ...post, logged_in: req.session.logged_in });  // post view should be implement
+  } 
+  catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
